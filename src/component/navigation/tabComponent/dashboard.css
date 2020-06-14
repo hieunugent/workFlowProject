@@ -1,0 +1,8 @@
+.notifi{
+    margin-right: 30px;
+    margin-left: auto;
+    display: "flex";
+    align-items: "center";
+    justify-content: "flex-end";
+    padding: "0 8px",
+}
