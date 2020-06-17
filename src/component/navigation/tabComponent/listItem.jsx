@@ -93,21 +93,26 @@ export default function MainMenu(){
  const classes = useStyles();
  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 return (
- 
     <Container maxWidth="lg" className={classes.container}>
       <Grid container spacing={3}>
         {/* Chart */}
-        <Grid item xs={12} md={8} lg={9}>
-          <Paper className={fixedHeightPaper}>chart</Paper>
+        <Grid item xs={12} md={4} lg={3}>
+          <Paper className={fixedHeightPaper}>data 1</Paper>
         </Grid>
         {/* Recent Deposits */}
-        <Grid item xs={12} md={4} lg={3}>
-          <Paper className={fixedHeightPaper}>Deposits</Paper>
+      <Grid item xs={12} md={4} lg={3}>
+          <Paper className={fixedHeightPaper}>Data 2</Paper>
         </Grid>
         {/* Recent Orders */}
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>Orders</Paper>
+      <Grid item xs={12} md={4} lg={3}>
+        <Paper className={fixedHeightPaper}>Data 3</Paper>
         </Grid>
+         <Grid item xs={12} md={4} lg={3}>
+        <Paper className={fixedHeightPaper}>Data 4</Paper>
+         </Grid>
+      <Grid item xs={12} >
+        <Paper className={classes.paper}>Data 4</Paper>
+      </Grid>
       </Grid>
       
     </Container>

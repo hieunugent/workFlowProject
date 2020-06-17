@@ -126,11 +126,11 @@ export default function Main() {
             </IconButton>
           </div>
           <List>
-              <ListItem>   <Link to="/"> <Tab label="DashBoard" ></Tab> </Link> </ListItem>
-              <ListItem>   <Link to="/Project" ><Tab label="Project" ></Tab></Link></ListItem>
-              <ListItem>   <Link to="/Issues"><Tab label="Issues"></Tab></Link> </ListItem>
-              <ListItem>   <Link to="/Report"><Tab label="Report"></Tab></Link></ListItem>
-              <ListItem>   <Link to="/Users"><Tab label="Users"> </Tab></Link></ListItem>
+              <ListItem>   <Link  to="/" ><Tab label="Dashbash" ></Tab></Link></ListItem>
+              <ListItem>   <Link  to="/Project" ><Tab label="Project" ></Tab></Link></ListItem>
+              <ListItem>   <Link  to="/Issues"><Tab label="Issues"></Tab></Link> </ListItem>
+              <ListItem>   <Link  to="/Report"><Tab label="Report"></Tab></Link></ListItem>
+              <ListItem>   <Link  to="/Users"><Tab label="Users"> </Tab></Link></ListItem>
           </List>
         </Drawer>
      </nav>
@@ -142,19 +142,24 @@ export default function Main() {
 
           <Switch>
             <Route exact path="/">
-                <Dashboard />
+                <Dashboard  />
+                Dashbash
             </Route>
             <Route path="/Project">
-              <Project />
+              <Project   />
+              project
             </Route>
             <Route path="/Issues">
               <Issues />
+              issuse
             </Route>
             <Route path="/Report">
               <Reports />
+              report
             </Route>
             <Route path="/Users">
               <Users />
+              users
             </Route>
           </Switch>
 
