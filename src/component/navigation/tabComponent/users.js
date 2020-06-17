@@ -1,5 +1,9 @@
 import React from "react";
-
-export default function users() {
-  return <h1> Users Start</h1>;
+import "./mycomponent.css";
+export default function Users() {
+  return (
+     <div className="mypage">
+       <h1> Users Start</h1>
+    </div>
+  );
 }

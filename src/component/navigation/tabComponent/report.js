@@ -1,5 +1,11 @@
 import React from "react";
 
-export default function reports(){
-    return( <h1> Reports Start</h1>);
+export default function Reports(){
+    return( 
+    <div className="mypage">
+            <h1> Reports Start</h1>
+
+    </div>
+    
+  );
 }
