@@ -46,6 +46,37 @@ const useStyles = makeStyles((theme)=> ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+  content: {
+  
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  //  marginLeft: -drawerWidth,
+    marginTop: `60px`,
+  },
+  contentShift: {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  hide: {
+    display: 'none',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+
+
 }));
 export default function Main() {
   const classes = useStyles();
@@ -69,20 +100,26 @@ export default function Main() {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
+            className={clsx(classes.menuButton, open && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
           <Typography variant='h6' noWrap>
-            Responser drawer
+           Temperary Response Header
         </Typography>
         </Toolbar>
     </AppBar>
       <Router>
      <nav>
         <Drawer
+          className={classes.drawer}
           variant="persistent"
           anchor="left"
-          open={open}>
+          open={open}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            >
           <div >
             <IconButton onClick={handleDrawerClose}>
               <ChevronLeftIcon />
@@ -97,7 +134,9 @@ export default function Main() {
           </List>
         </Drawer>
      </nav>
-        <main >  
+        <main className={clsx(classes.content,{
+          [classes.appBarShift]: open,}
+          )}>  
           <hr />
           <div  >
 

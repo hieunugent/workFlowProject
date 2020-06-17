@@ -30,7 +30,7 @@ import './mycomponent.css'
 export default function Dashboard() {
   const drawer = (
       <div >
-      <div className="mypage" />
+      <div />
       <List>
         {['List Done', 'List Request', 'List Waiting', 'List Error'].map((text, index) => (
           <ListItem button key={text} >
