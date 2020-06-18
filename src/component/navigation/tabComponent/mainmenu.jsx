@@ -96,22 +96,22 @@ return (
     <Container maxWidth="lg" className={classes.container}>
       <Grid container spacing={3}>
         {/* Chart */}
-        <Grid item xs={12} md={4} lg={3}>
-          <Paper className={fixedHeightPaper}>data 1</Paper>
+        <Grid item xs={12} md={4} lg={4}>
+          <Paper className={fixedHeightPaper}>Project:You track</Paper>
         </Grid>
         {/* Recent Deposits */}
       <Grid item xs={12} md={4} lg={3}>
-          <Paper className={fixedHeightPaper}>Data 2</Paper>
+          <Paper className={fixedHeightPaper}>Issues per Project</Paper>
         </Grid>
         {/* Recent Orders */}
       <Grid item xs={12} md={4} lg={3}>
-        <Paper className={fixedHeightPaper}>Data 3</Paper>
+        <Paper className={fixedHeightPaper}>Board Production </Paper>
         </Grid>
-         <Grid item xs={12} md={4} lg={3}>
-        <Paper className={fixedHeightPaper}>Data 4</Paper>
+         <Grid item xs={12} md={4} lg={5}>
+        <Paper className={fixedHeightPaper}>Assignee</Paper>
          </Grid>
-      <Grid item xs={12} >
-        <Paper className={classes.paper}>Data 4</Paper>
+      <Grid item xs={12} md={8} lg={5}>
+        <Paper className={fixedHeightPaper}>Due Date Calender</Paper>
       </Grid>
       </Grid>
       
