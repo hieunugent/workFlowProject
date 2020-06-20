@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, makeStyles, TextField, FormControl, InputLabel, Select, Input, MenuItem, useTheme } from "@material-ui/core";
+import { Button, makeStyles, TextField, FormControl, InputLabel, Select, Input, MenuItem, useTheme, NativeSelect } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 
 const ITEM_HEIGHT = 48;
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
   
 })); 
-const names=['project 1', 'project 2','project 3', 'project 4', 'project 5', 'project 6', ];
+const names=['project 1', 'project 2','project 3', 'project 4', 'project 5', 'project 6','new project 7', ];
 function getStyles(name, projectName, theme){
     return {
         fontWeight:
@@ -49,32 +49,36 @@ function IssueOfProject(){
         
         setProjectName(event.target.value);
     }
+    const handleChangeMultiple = (event) => {
+        const {options} = event.target;
+        const value = [];
+        for (let i = 0, l = options.length;  i < l; i +=1 ){
+            if(options[i].seleted){
+                value.push(options[i].value);
+            }
+        }
+        setProjectName(value);
+    }
     return (
         <FormControl className={classes.formControl} >
            <Select
-           multiple
-           value={projectName}
-                onChange={handleChange}
-                input={<Input/>}
-                renderValue={(seleted)=> {
-                    if (seleted.length ===0){
-                        return <em>Project Name</em>
-                    }
-                    return seleted;  
-                }}
-                MenuProps={MenuProps}
-                inputProps={{'aria-label': 'Without label'}}
-                >
-                <MenuItem disabled value="">
-                    <em>Project Name</em>
+             value={projectName}
+             onChange={handleChange}
+             input={<Input/>}
+             MenuProps={MenuProps}
+             inputProps={{'aria-label': 'Without label'}}
+             displayEmpty
+             >
+                <MenuItem value="" disabled>
+                    YourProjectName
                 </MenuItem>
+                
                 {names.map((name) => (
                     <MenuItem key={name} value={name} style={getStyles(name, projectName, theme)}>
                         {name}
                     </MenuItem>
                 ))}
-
-           </Select>
+            </Select>
         </FormControl>
     );
 }
@@ -96,8 +100,6 @@ function AddIssueButton (){
             >
                 <AddIcon /> New Issues
             </Button>
-
-            
                 <div className={classes.formInput}>
                 <h1> New Issue in <IssueOfProject/> </h1>
                 <TextField 
@@ -107,9 +109,6 @@ function AddIssueButton (){
                     fullWidth 
                     placeholder=" Add quick sumary for your issues"
                     margin="normal"
-                    // InputLabelProps={{
-                    //     shrink: true,
-                    // }}
                 />
                 <TextField id="description" label="Description" />
 
