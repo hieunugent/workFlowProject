@@ -167,7 +167,7 @@ export default function Main() {
             </Route>
             <Route path="/Issues">
               <Issues />
-              issuse
+              issues
             </Route>
             <Route path="/Report">
               <Reports />
