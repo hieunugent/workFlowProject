@@ -29,7 +29,7 @@ import clsx from 'clsx';
 const drawerWidth= 240;
 const useStyles = makeStyles((theme)=> ({
   root:{
-    display:'flex',
+   // display:'flex-start',
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme)=> ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-  //  marginLeft: -drawerWidth,
+   
     marginTop: `60px`,
   },
   contentShift: {

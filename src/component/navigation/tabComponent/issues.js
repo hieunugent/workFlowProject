@@ -1,6 +1,7 @@
-import React from "react";
-import { Button, makeStyles, TextField, FormControl, InputLabel, Select, Input, MenuItem, useTheme, NativeSelect } from "@material-ui/core";
+import React, { useState } from "react";
+import { Button, makeStyles, TextField, FormControl,  Select, Input, MenuItem, useTheme,  Box, Grid } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
+import "./issues.css";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -17,18 +18,41 @@ const useStyles = makeStyles((theme) => ({
         '& > *': {
             margin: theme.spacing(1),
             width: '70%',
+         
         },
     },
     newIssue: {
         '& > *': {
             margin: theme.spacing(1),
-      
+
         },
     },
     formControl: {
         margin: theme.spacing(1),
+        width:'auto',
         minWidth: 120,
         maxWidth: 300,
+    },
+    inputOption:{
+        margin: theme.spacing(1),
+        position:"auto",
+        marginLeft:'15%', 
+        width: '40%',
+
+    },
+    fieldButton:{
+        '& > *': {
+            margin: theme.spacing(1),
+            
+            left: "60%",
+            position:"relative",
+
+
+        },
+
+    },
+    previewField:{
+       
     },
   
 })); 
@@ -40,26 +64,20 @@ function getStyles(name, projectName, theme){
                 ? theme.typography.fontWeightRegular: theme.typography.fontWeightMedium,
     };
 }
+
 function IssueOfProject(){
     const classes = useStyles();
     const theme = useTheme();
     const [projectName, setProjectName] = React.useState([]);
     const handleChange=(event)=> {
-        console.log(event.target);
-        
+       
         setProjectName(event.target.value);
+        //setCurrentproject(event.target.value);
+        
     }
-    const handleChangeMultiple = (event) => {
-        const {options} = event.target;
-        const value = [];
-        for (let i = 0, l = options.length;  i < l; i +=1 ){
-            if(options[i].seleted){
-                value.push(options[i].value);
-            }
-        }
-        setProjectName(value);
-    }
+   
     return (
+        
         <FormControl className={classes.formControl} >
            <Select
              value={projectName}
@@ -70,25 +88,53 @@ function IssueOfProject(){
              displayEmpty
              >
                 <MenuItem value="" disabled>
-                    YourProjectName
-                </MenuItem>
-                
+                    Your Project Name
+                </MenuItem> 
                 {names.map((name) => (
                     <MenuItem key={name} value={name} style={getStyles(name, projectName, theme)}>
                         {name}
                     </MenuItem>
                 ))}
+                
             </Select>
+            
         </FormControl>
     );
 }
+
 function AddIssueButton (){
     const classes = useStyles();
+    
+    const [openissueform, setissueOpen] = useState('none');
+    const [issuePageON, setIssuepageOn] = useState(false);
+    const [sumaries, setSumary] = useState('');
+    const [descriptions, setDescript] = useState('');
+    const [currentProject, setCurrentproject] = useState('');
+    const handlePreviewIssue= (event)=> {
+        if (event.target.id === "sumary-issue") {
+            setSumary(event.target.value);
+        }
+        else if (event.target.id === "description") {
+            setDescript(event.target.value);
+        }
+    }
 
     const handleIssueClick = () => {
-        console.log("create new issue");
+        if(!issuePageON){
+            console.log("create new issue");
+            setissueOpen('block');
+            setIssuepageOn(true);
+        }
+        else{
+            setissueOpen('none');
+            setIssuepageOn(false);
+        }
+    }
+    const  handleCreateIssue = () => {
 
     }
+   
+
     return (
         <div>
             <Button
@@ -100,31 +146,61 @@ function AddIssueButton (){
             >
                 <AddIcon /> New Issues
             </Button>
-                <div className={classes.formInput}>
-                <h1> New Issue in <IssueOfProject/> </h1>
+               <Box display={openissueform}>
+                <div   className={classes.formInput }>
+                    <h1 className={classes.inputOption} > 
+                    New Issue in 
+                    <IssueOfProject 
+                    id="curentProject"
+                    />
+                    
+                    </h1>
                 <TextField 
-                    id="sumary-issue" 
+                    id="sumary-issue"
                     style={{ margin: 8 }} 
                     label="Sumary Issue" 
                     fullWidth 
                     placeholder=" Add quick sumary for your issues"
                     margin="normal"
+                    onChange={handlePreviewIssue}
+                        
                 />
-                <TextField id="description" label="Description" />
+                <TextField 
+                     id="description" 
+                     label="Description" 
+                     onChange={handlePreviewIssue}  />
+
+
+                    <div className={classes.fieldButton}>
+                        <Button variant="contained" color='primary' onClick={handleCreateIssue}> Create </Button>
+                        <Button variant="outlined" color='primary' onClick={handleIssueClick}> Cancel </Button>
+                    </div>  
 
                 </div>
+                <div className="leftaligning">
+                    <h3> Preview Issue</h3>
+                    <h4>{currentProject}</h4>
+                    <h4>{sumaries}</h4>
+                    <p> {descriptions} </p>
+                </div>
+                </Box>
+                <Box display={openissueform} >
+                     
+               </Box>
         </div>
        
     );
 }
-export default function Issues(){
-   
 
-   
+
+
+
+export default function Issues(){  
     return (
         <div>
             <h1> Issues starts </h1>
             <AddIssueButton/>
+         
       
         </div>
     );
