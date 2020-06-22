@@ -64,18 +64,90 @@ function getStyles(name, projectName, theme){
                 ? theme.typography.fontWeightRegular: theme.typography.fontWeightMedium,
     };
 }
-
-
+function IssueForm(props){
+    return (
+       
+                <div>
+                <h4>{props.nameProject}</h4>
+                <h4>{props.sumariesIssue}</h4>
+                <p> {props.descriptionsIssue} </p>
+                </div>
+    );
+}
 
 function AddIssueButton (){
-    const [projectName, setProjectName] = React.useState([]);
+    const [projectName, setProjectName] = useState([]);
+    const [sumaries, setSumary] = useState('');
+    const [descriptions, setDescript] = useState('');
+
+    const classes = useStyles();
+    const [openissueform, setissueOpen] = useState('none');
+    const [issuePageON, setIssuepageOn] = useState(false);
+   
+    //const [currentProject, setCurrentproject] = useState('');
+    
+    const [issueFormInfo, setIssueInfo] = useState(  
+         {
+          nameProject: "",
+          sumariesIssue: "",
+          descriptionsIssue: "",
+         }
+            );
+    const handleCreateIssue = (event) => {
+        const { name, value } = event.target;
+        setIssueInfo(prevItems => {
+            return {
+                ...prevItems,
+                [name]: value
+            };
+        });
+
+    }
+    const [listIssue, setListIssue] = useState([]);
+    function addListIssue(newNode) {
+        setListIssue(prevList => {
+            return [...prevList, newNode];
+        });
+    }
+  
+
+
+    const handlePreviewIssue = (event) => {
+        if (event.target.id === "sumary-issue") {
+            setSumary(event.target.value);
+        }
+        else if (event.target.id === "description") {
+            setDescript(event.target.value);
+        }
+    }
+
+    const handleIssueClick = () => {
+        if (!issuePageON) {
+            console.log("create new issue");
+            setissueOpen('block');
+            setIssuepageOn(true);
+        }
+        else {
+            setissueOpen('none');
+            setIssuepageOn(false);
+        }
+    }
+    
+
     function IssueOfProject() {
         const classes = useStyles();
         const theme = useTheme();
         
         const handleChange = (event) => {
             setProjectName(event.target.value);
-            console.log(event.target.value);
+            const { name, value } = event.target;
+            setIssueInfo(prevItems => {
+                return {
+                    ...prevItems,
+                    [name]: value
+                };
+            });
+            
         }
 
 
@@ -84,7 +156,8 @@ function AddIssueButton (){
             <FormControl className={classes.formControl} >
                 <Select
                     id="selectProject"
-                    value={projectName}
+                    name="nameProject"
+                    value={issueFormInfo.nameProject}
                     onChange={handleChange}
                     input={<Input />}
                     MenuProps={MenuProps}
@@ -107,45 +180,7 @@ function AddIssueButton (){
         );
     }
 
-    const classes = useStyles();  
-    const [openissueform, setissueOpen] = useState('none');
-    const [issuePageON, setIssuepageOn] = useState(false);
-    const [sumaries, setSumary] = useState('');
-    const [descriptions, setDescript] = useState('');
-    //const [currentProject, setCurrentproject] = useState('');
-    const handlePreviewIssue= (event)=> {
-        if (event.target.id === "sumary-issue") {
-            setSumary(event.target.value);
-        }
-        else if (event.target.id === "description") {
-            setDescript(event.target.value);
-        }
-    }
-
-    const handleIssueClick = () => {
-        if(!issuePageON){
-            console.log("create new issue");
-            setissueOpen('block');
-            setIssuepageOn(true);
-        }
-        else{
-            setissueOpen('none');
-            setIssuepageOn(false);
-        }
-    }
-    const  handleCreateIssue = () => {
-
-    }
-    const handleClick = (event) => {
-        console.log("is click");
-
-    }
-    const handleChange = (event)=> {
-        console.log
-        (event.target);
-        
-    }
-
+   
     return (
         <div>
             <Button
@@ -159,12 +194,14 @@ function AddIssueButton (){
             </Button>
                <Box display={openissueform}>
                 <div   className={classes.formInput }>
-                    <h1 className={classes.inputOption} onClick={handleClick} > 
+                    <h1 className={classes.inputOption}  > 
                          New Issue in 
-                         <IssueOfProject id="currentProjectname" onChange={handleChange}/> 
+                         <IssueOfProject id="currentProjectname" /> 
                     </h1>
                 <TextField 
                     id="sumary-issue"
+                      
+                    name="sumariesIssue"
                     style={{ margin: 8 }} 
                     label="Sumary Issue" 
                     fullWidth 
@@ -175,12 +212,14 @@ function AddIssueButton (){
                 />
                 <TextField 
                      id="description" 
+                     
+                     name="descriptionsIssue"
                      label="Description" 
                      onChange={handlePreviewIssue}  />
 
 
                     <div className={classes.fieldButton}>
-                        <Button variant="contained" color='primary' onClick={handleCreateIssue}> Create </Button>
+                        <Button variant="contained" color='primary' onClick={handleCreateIssue}  > Create </Button>
                         <Button variant="outlined" color='primary' onClick={handleIssueClick}> Cancel </Button>
                     </div>  
 
@@ -192,7 +231,17 @@ function AddIssueButton (){
                     <p> {descriptions} </p>
                 </div>
                 </Box>
-                <Box display={openissueform} >
+               <Box display='block' >
+                the PermenantFOrm 
+                {listIssue.map((list, index)=> {
+                    return (
+                        <IssueForm 
+                        key={index}
+                        id={index} 
+                        sumariesIssue={list.sumariesIssue}
+                        descriptionsIssue={list.descriptionsIssue}
+                    />);
+                })}
                     
                </Box>
         </div>
