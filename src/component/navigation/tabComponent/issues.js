@@ -64,28 +64,36 @@ function getStyles(name, projectName, theme){
                 ? theme.typography.fontWeightRegular: theme.typography.fontWeightMedium,
     };
 }
-
+let currentProject='no information';
 function IssueOfProject(){
     const classes = useStyles();
     const theme = useTheme();
     const [projectName, setProjectName] = React.useState([]);
     const handleChange=(event)=> {
        
-        setProjectName(event.target.value);
+    setProjectName(event.target.value);
+        //currentProject = event.target.value;
+        // console.log(event.target.value);
+        
         //setCurrentproject(event.target.value);
+        console.log(event.target.value);
+        
         
     }
+    
    
     return (
         
         <FormControl className={classes.formControl} >
            <Select
+             id="selectProject"
              value={projectName}
              onChange={handleChange}
              input={<Input/>}
              MenuProps={MenuProps}
              inputProps={{'aria-label': 'Without label'}}
              displayEmpty
+            
              >
                 <MenuItem value="" disabled>
                     Your Project Name
@@ -109,7 +117,7 @@ function AddIssueButton (){
     const [issuePageON, setIssuepageOn] = useState(false);
     const [sumaries, setSumary] = useState('');
     const [descriptions, setDescript] = useState('');
-    const [currentProject, setCurrentproject] = useState('');
+    //const [currentProject, setCurrentproject] = useState('');
     const handlePreviewIssue= (event)=> {
         if (event.target.id === "sumary-issue") {
             setSumary(event.target.value);
@@ -133,7 +141,14 @@ function AddIssueButton (){
     const  handleCreateIssue = () => {
 
     }
-   
+    const handleClick = (event) => {
+        console.log("is click");
+
+    }
+    const handleChange = (event)=> {
+        console.log(event.target);
+        
+    }
 
     return (
         <div>
@@ -148,11 +163,12 @@ function AddIssueButton (){
             </Button>
                <Box display={openissueform}>
                 <div   className={classes.formInput }>
-                    <h1 className={classes.inputOption} > 
+                    <h1 className={classes.inputOption} onClick={handleClick} > 
                     New Issue in 
-                    <IssueOfProject 
-                    id="curentProject"
-                    />
+                    <div>
+                            <IssueOfProject
+                            />
+                    </div>
                     
                     </h1>
                 <TextField 
@@ -185,7 +201,7 @@ function AddIssueButton (){
                 </div>
                 </Box>
                 <Box display={openissueform} >
-                     
+                     {currentProject}
                </Box>
         </div>
        
