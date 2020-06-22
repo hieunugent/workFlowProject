@@ -64,55 +64,50 @@ function getStyles(name, projectName, theme){
                 ? theme.typography.fontWeightRegular: theme.typography.fontWeightMedium,
     };
 }
-let currentProject='no information';
-function IssueOfProject(){
-    const classes = useStyles();
-    const theme = useTheme();
-    const [projectName, setProjectName] = React.useState([]);
-    const handleChange=(event)=> {
-       
-    setProjectName(event.target.value);
-        //currentProject = event.target.value;
-        // console.log(event.target.value);
-        
-        //setCurrentproject(event.target.value);
-        console.log(event.target.value);
-        
-        
-    }
-    
-   
-    return (
-        
-        <FormControl className={classes.formControl} >
-           <Select
-             id="selectProject"
-             value={projectName}
-             onChange={handleChange}
-             input={<Input/>}
-             MenuProps={MenuProps}
-             inputProps={{'aria-label': 'Without label'}}
-             displayEmpty
-            
-             >
-                <MenuItem value="" disabled>
-                    Your Project Name
-                </MenuItem> 
-                {names.map((name) => (
-                    <MenuItem key={name} value={name} style={getStyles(name, projectName, theme)}>
-                        {name}
-                    </MenuItem>
-                ))}
-                
-            </Select>
-            
-        </FormControl>
-    );
-}
+
+
 
 function AddIssueButton (){
-    const classes = useStyles();
-    
+    const [projectName, setProjectName] = React.useState([]);
+    function IssueOfProject() {
+        const classes = useStyles();
+        const theme = useTheme();
+        
+        const handleChange = (event) => {
+            setProjectName(event.target.value);
+            console.log(event.target.value);
+        }
+
+
+        return (
+
+            <FormControl className={classes.formControl} >
+                <Select
+                    id="selectProject"
+                    value={projectName}
+                    onChange={handleChange}
+                    input={<Input />}
+                    MenuProps={MenuProps}
+                    inputProps={{ 'aria-label': 'Without label' }}
+                    displayEmpty
+
+                >
+                    <MenuItem value="" disabled>
+                        Your Project Name
+                </MenuItem>
+                    {names.map((name) => (
+                        <MenuItem key={name} value={name} style={getStyles(name, projectName, theme)}>
+                            {name}
+                        </MenuItem>
+                    ))}
+
+                </Select>
+
+            </FormControl>
+        );
+    }
+
+    const classes = useStyles();  
     const [openissueform, setissueOpen] = useState('none');
     const [issuePageON, setIssuepageOn] = useState(false);
     const [sumaries, setSumary] = useState('');
@@ -146,7 +141,8 @@ function AddIssueButton (){
 
     }
     const handleChange = (event)=> {
-        console.log(event.target);
+        console.log
+        (event.target);
         
     }
 
@@ -164,12 +160,8 @@ function AddIssueButton (){
                <Box display={openissueform}>
                 <div   className={classes.formInput }>
                     <h1 className={classes.inputOption} onClick={handleClick} > 
-                    New Issue in 
-                    <div>
-                            <IssueOfProject
-                            />
-                    </div>
-                    
+                         New Issue in 
+                         <IssueOfProject id="currentProjectname" onChange={handleChange}/> 
                     </h1>
                 <TextField 
                     id="sumary-issue"
@@ -195,13 +187,13 @@ function AddIssueButton (){
                 </div>
                 <div className="leftaligning">
                     <h3> Preview Issue</h3>
-                    <h4>{currentProject}</h4>
+                    <h4>{projectName}</h4>
                     <h4>{sumaries}</h4>
                     <p> {descriptions} </p>
                 </div>
                 </Box>
                 <Box display={openissueform} >
-                     {currentProject}
+                    
                </Box>
         </div>
        
@@ -216,8 +208,6 @@ export default function Issues(){
         <div>
             <h1> Issues starts </h1>
             <AddIssueButton/>
-         
-      
         </div>
     );
 }
