@@ -89,10 +89,10 @@ function getStyles(name, projectName, theme){
                 ? theme.typography.fontWeightRegular: theme.typography.fontWeightMedium,
     };
 }
-function IssueForm(props){
+const  IssueForm = (props)=>{
     return (
        
-                <div>
+        <div className="leftaligning">
                 <h4>{props.nameProject}</h4>
                 <h4>{props.sumariesIssue}</h4>
                 <p> {props.descriptionsIssue} </p>
@@ -100,16 +100,13 @@ function IssueForm(props){
     );
 }
 
-function AddIssueButton (props){
-    const [projectName, setProjectName] = useState([]);
-    const [sumaries, setSumary] = useState('');
-    const [descriptions, setDescript] = useState('');
-
+const AddIssueButton = ()=>{
     const classes = useStyles();
+    const [projectName, setProjectName] = useState([]);  
     const [openissueform, setissueOpen] = useState('none');
+    const [modifyIssueForm, setIssueModify] = useState('none');
     const [issuePageON, setIssuepageOn] = useState(false);
    
-    //const [currentProject, setCurrentproject] = useState('');
     
     const [issueFormInfo, setIssueInfo] = useState(
             {  
@@ -120,13 +117,13 @@ function AddIssueButton (props){
         );
 
     const [listIssue, setListIssue] = useState([]);
-    function addListIssue(newNode) {
+    const  addListIssue=(newNode)=> {
         setListIssue(prevList => {
             return [...prevList, newNode];
         });
     }
    
-  function submitIssue(event){
+  const  submitIssue = (event)=> {
       console.log(issueFormInfo);
       
       addListIssue(issueFormInfo);
@@ -135,10 +132,12 @@ function AddIssueButton (props){
           sumariesIssue: "",
           descriptionsIssue: "",
       });
+      setIssueModify('block');
+      setissueOpen('none');
+      setIssuepageOn(false);
       event.preventDefault();
 
   }
-
 
     const handlePreviewIssue = (event) => {
         const { name, value } = event.target;
@@ -148,15 +147,9 @@ function AddIssueButton (props){
                 [name]: value
             };
         });
-        if (event.target.id === "sumary-issue") {
-            setSumary(event.target.value);
-        }
-        else if (event.target.id === "description") {
-            setDescript(event.target.value);
-        }
-
+        
     }
-
+   
     const handleIssueClick = () => {
         if (!issuePageON) {
             console.log("create new issue");
@@ -170,7 +163,7 @@ function AddIssueButton (props){
     }
     
 
-    function IssueOfProject() {
+    const  IssueOfProject=()=> {
         const classes = useStyles();
         const theme = useTheme();    
         const handleChange = (event) => {
@@ -247,34 +240,48 @@ function AddIssueButton (props){
 
 
                     <div className={classes.fieldButton}>
-                        <Button variant="contained" color='primary' onClick={submitIssue} > Create </Button>
+                        <Button variant="contained" color='primary' onClick={submitIssue} onChange={addListIssue}> Create </Button>
                         <Button variant="outlined"  color='primary' onClick={handleIssueClick}> Cancel </Button>
                     </div>  
 
                 </div>
-                <div className="leftaligning" id = "previewSection">
+                 <div className="leftaligning" id = "previewSection">
                     <h3> Preview Issue</h3>
-                    <h4>{projectName}</h4>
-                    <h4>{sumaries}</h4>
-                    <p> {descriptions} </p>
-                </div>
+                    <h4>{issueFormInfo.nameProject}</h4>
+                    <h4>{issueFormInfo.sumariesIssue}</h4>
+                    <p> {issueFormInfo.descriptionsIssue} </p>
+                </div> 
                 </Box>
-            <Box display='block'    >
-                the Regulation form 
-                 {addListIssue }
-                {listIssue.map((list, index) => {
+            <Box display={modifyIssueForm}   >
+                <h2 className="leftaligning"> All the Issue that you have</h2>
+                {listIssueTemple.map((list, index) => {
                  return (
-                     <div className="leftaligning" key={index}>
+                     <div key={`${index}-${list.nameProject}`}>
                          <IssueForm
-                            key={index}
+                           
                             id={index}
+                            value={list}
                             nameProject={list.nameProject}
                             sumariesIssue={list.sumariesIssue}
                             descriptionsIssue={list.descriptionsIssue}
                          />
                      </div>
                  );
-            })} 
+               })} 
+                {listIssue.map((list, index) => {
+                    return (
+                        <div key={`${index}-${list.nameProject}`}>
+                            <IssueForm
+                                
+                                id={index}
+                                value={list}
+                                nameProject={list.nameProject}
+                                sumariesIssue={list.sumariesIssue}
+                                descriptionsIssue={list.descriptionsIssue}
+                            />
+                        </div>
+                    );
+                })} 
 
             </Box>
         </div>
