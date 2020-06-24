@@ -3,6 +3,32 @@ import { Button, makeStyles, TextField, FormControl, Select, Input, MenuItem, us
 import AddIcon from '@material-ui/icons/Add';
 import "./issues.css";
 
+// const MongoClient= require('mongodb').MongoClient;
+// const assert = require('assert');
+
+// const url = 'mongodb://localhost:27017';
+
+// const dbName = 'issuesDB';
+
+// const client = new MongoClient(url);
+
+// client.connect(function(err){
+//     assert.equal(null, err);
+//     console.log("connected successfully to server");
+//     const db = client.db(dbName);
+//     client.close();
+    
+// });
+
+
+
+
+
+
+
+
+
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
