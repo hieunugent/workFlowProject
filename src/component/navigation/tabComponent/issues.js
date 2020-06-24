@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, makeStyles, TextField, FormControl,  Select, Input, MenuItem, useTheme,  Box, Grid } from "@material-ui/core";
+import { Button, makeStyles, TextField, FormControl,  Select, Input, MenuItem, useTheme,  Box } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import "./issues.css";
 
@@ -14,27 +14,27 @@ const MenuProps = {
     },
 };
 const listIssueTemple = [{
-    projectName: "project A",
+    nameProject: "project A",
     sumariesIssue: " this is First Issue ",
     descriptionsIssue: "the issue is useed to test all the file of list template "
 }, {
-    projectName: "project b",
+        nameProject: "project b",
         sumariesIssue: " this is second Issue ",
         descriptionsIssue: "the issue is useed to test all the file of list template "
     }, {
-        projectName: "project B",
+        nameProject: "project B",
         sumariesIssue: " this is third Issue ",
         descriptionsIssue: "the issue is useed to test all the file of list template "
     }, {
-        projectName: "project C",
+        nameProject: "project C",
         sumariesIssue: " this is fouth Issue ",
         descriptionsIssue: "the issue is useed to test all the file of list template "
     }, {
-        projectName: "project D",
+        nameProject: "project D",
         sumariesIssue: " this is fifth Issue ",
         descriptionsIssue: "the issue is useed to test all the file of list template "
     }, {
-        projectName: "project F",
+        nameProject: "project F",
         sumariesIssue: " this is sixth Issue ",
         descriptionsIssue: "the issue is useed to test all the file of list template "
     },]
@@ -46,12 +46,7 @@ const useStyles = makeStyles((theme) => ({
          
         },
     },
-    newIssue: {
-        '& > *': {
-            margin: theme.spacing(1),
-
-        },
-    },
+   
     formControl: {
         margin: theme.spacing(1),
         width:'auto',
@@ -104,7 +99,7 @@ const AddIssueButton = ()=>{
     const classes = useStyles();
     const [projectName, setProjectName] = useState([]);  
     const [openissueform, setissueOpen] = useState('none');
-    const [modifyIssueForm, setIssueModify] = useState('none');
+    const [modifyIssueForm, setIssueModify] = useState('block');
     const [issuePageON, setIssuepageOn] = useState(false);
    
     
@@ -154,10 +149,12 @@ const AddIssueButton = ()=>{
         if (!issuePageON) {
             console.log("create new issue");
             setissueOpen('block');
+            setIssueModify('none')
             setIssuepageOn(true);
         }
         else {
             setissueOpen('none');
+            setIssueModify('block')
             setIssuepageOn(false);
         }
     }
@@ -204,15 +201,18 @@ const AddIssueButton = ()=>{
     }  
     return (
         <div>
-            <Button
-                className={classes.newIssue}
-                color="primary"
-                variant="outlined"
-                aria-controls="create-issue"
-                onClick={handleIssueClick}
-            >
-                <AddIcon /> New Issues
+            <h1> Issue Pages</h1>
+            <div className="issuesButton" > 
+                <Button      
+                    color="primary"
+                    variant="contained"
+                    aria-controls="create-issue"
+                    onClick={handleIssueClick}
+                >
+                    <AddIcon /> New Issues
             </Button>
+            </div>
+            
                <Box display={openissueform}>
                 <div   className={classes.formInput }>
                     <h1 className={classes.inputOption}  > 
@@ -295,7 +295,6 @@ const AddIssueButton = ()=>{
 export default function Issues(){  
     return (
         <div>
-            <h1> Issues starts </h1>
             <AddIssueButton/>
         </div>
     );
