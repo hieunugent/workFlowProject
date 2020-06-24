@@ -13,6 +13,31 @@ const MenuProps = {
         },
     },
 };
+const listIssueTemple = [{
+    projectName: "project A",
+    sumariesIssue: " this is First Issue ",
+    descriptionsIssue: "the issue is useed to test all the file of list template "
+}, {
+    projectName: "project b",
+        sumariesIssue: " this is second Issue ",
+        descriptionsIssue: "the issue is useed to test all the file of list template "
+    }, {
+        projectName: "project B",
+        sumariesIssue: " this is third Issue ",
+        descriptionsIssue: "the issue is useed to test all the file of list template "
+    }, {
+        projectName: "project C",
+        sumariesIssue: " this is fouth Issue ",
+        descriptionsIssue: "the issue is useed to test all the file of list template "
+    }, {
+        projectName: "project D",
+        sumariesIssue: " this is fifth Issue ",
+        descriptionsIssue: "the issue is useed to test all the file of list template "
+    }, {
+        projectName: "project F",
+        sumariesIssue: " this is sixth Issue ",
+        descriptionsIssue: "the issue is useed to test all the file of list template "
+    },]
 const useStyles = makeStyles((theme) => ({
     formInput: {
         '& > *': {
@@ -75,7 +100,7 @@ function IssueForm(props){
     );
 }
 
-function AddIssueButton (){
+function AddIssueButton (props){
     const [projectName, setProjectName] = useState([]);
     const [sumaries, setSumary] = useState('');
     const [descriptions, setDescript] = useState('');
@@ -86,14 +111,36 @@ function AddIssueButton (){
    
     //const [currentProject, setCurrentproject] = useState('');
     
-    const [issueFormInfo, setIssueInfo] = useState(  
-         {
+    const [issueFormInfo, setIssueInfo] = useState(
+            {  
+                nameProject: "",
+                sumariesIssue: "",
+                descriptionsIssue: "",
+            }
+        );
+
+    const [listIssue, setListIssue] = useState([]);
+    function addListIssue(newNode) {
+        setListIssue(prevList => {
+            return [...prevList, newNode];
+        });
+    }
+   
+  function submitIssue(event){
+      console.log(issueFormInfo);
+      
+      addListIssue(issueFormInfo);
+      setIssueInfo({
           nameProject: "",
           sumariesIssue: "",
           descriptionsIssue: "",
-         }
-            );
-    const handleCreateIssue = (event) => {
+      });
+      event.preventDefault();
+
+  }
+
+
+    const handlePreviewIssue = (event) => {
         const { name, value } = event.target;
         setIssueInfo(prevItems => {
             return {
@@ -101,24 +148,13 @@ function AddIssueButton (){
                 [name]: value
             };
         });
-
-    }
-    const [listIssue, setListIssue] = useState([]);
-    function addListIssue(newNode) {
-        setListIssue(prevList => {
-            return [...prevList, newNode];
-        });
-    }
-  
-
-
-    const handlePreviewIssue = (event) => {
         if (event.target.id === "sumary-issue") {
             setSumary(event.target.value);
         }
         else if (event.target.id === "description") {
             setDescript(event.target.value);
         }
+
     }
 
     const handleIssueClick = () => {
@@ -136,10 +172,8 @@ function AddIssueButton (){
 
     function IssueOfProject() {
         const classes = useStyles();
-        const theme = useTheme();
-        
+        const theme = useTheme();    
         const handleChange = (event) => {
-            setProjectName(event.target.value);
             const { name, value } = event.target;
             setIssueInfo(prevItems => {
                 return {
@@ -147,10 +181,8 @@ function AddIssueButton (){
                     [name]: value
                 };
             });
-            
+            setProjectName(event.target.value);
         }
-
-
         return (
 
             <FormControl className={classes.formControl} >
@@ -173,14 +205,10 @@ function AddIssueButton (){
                             {name}
                         </MenuItem>
                     ))}
-
                 </Select>
-
             </FormControl>
         );
-    }
-
-   
+    }  
     return (
         <div>
             <Button
@@ -200,7 +228,7 @@ function AddIssueButton (){
                     </h1>
                 <TextField 
                     id="sumary-issue"
-                      
+                    value={issueFormInfo.sumariesIssue}
                     name="sumariesIssue"
                     style={{ margin: 8 }} 
                     label="Sumary Issue" 
@@ -212,38 +240,43 @@ function AddIssueButton (){
                 />
                 <TextField 
                      id="description" 
-                     
+                     value={issueFormInfo.descriptionsIssue}
                      name="descriptionsIssue"
                      label="Description" 
                      onChange={handlePreviewIssue}  />
 
 
                     <div className={classes.fieldButton}>
-                        <Button variant="contained" color='primary' onClick={handleCreateIssue}  > Create </Button>
-                        <Button variant="outlined" color='primary' onClick={handleIssueClick}> Cancel </Button>
+                        <Button variant="contained" color='primary' onClick={submitIssue} > Create </Button>
+                        <Button variant="outlined"  color='primary' onClick={handleIssueClick}> Cancel </Button>
                     </div>  
 
                 </div>
-                <div className="leftaligning">
+                <div className="leftaligning" id = "previewSection">
                     <h3> Preview Issue</h3>
                     <h4>{projectName}</h4>
                     <h4>{sumaries}</h4>
                     <p> {descriptions} </p>
                 </div>
                 </Box>
-               <Box display='block' >
-                the PermenantFOrm 
-                {listIssue.map((list, index)=> {
-                    return (
-                        <IssueForm 
-                        key={index}
-                        id={index} 
-                        sumariesIssue={list.sumariesIssue}
-                        descriptionsIssue={list.descriptionsIssue}
-                    />);
-                })}
-                    
-               </Box>
+            <Box display='block'    >
+                the Regulation form 
+                 {addListIssue }
+                {listIssue.map((list, index) => {
+                 return (
+                     <div className="leftaligning" key={index}>
+                         <IssueForm
+                            key={index}
+                            id={index}
+                            nameProject={list.nameProject}
+                            sumariesIssue={list.sumariesIssue}
+                            descriptionsIssue={list.descriptionsIssue}
+                         />
+                     </div>
+                 );
+            })} 
+
+            </Box>
         </div>
        
     );
