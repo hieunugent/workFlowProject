@@ -19,6 +19,8 @@
         - click create button  newissue page is hidden and refesh 
         - other box is showed with all other issue of the project current project
         - the displayIssue can be regulate by project name, month , day
+    - attemp to add MongoDb to project 
+       - mongoDb need to have nodejs to connect with frontend react
          
 
 
