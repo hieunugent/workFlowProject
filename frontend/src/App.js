@@ -9,7 +9,7 @@ class App extends Component {
   }
 
   callAPI() {
-    fetch("http://localhost:9000/testAPI")
+    fetch("http://localhost:9000/database")
       .then((res) => res.text())
       .then((res) => this.setState({ apiResponse: res }));
   }
@@ -22,7 +22,7 @@ class App extends Component {
     return (
       <div className="App">
         <Main />
-        <p className="App-intro">;{this.state.apiResponse}</p>
+       {/* <p className="App-intro">{this.state.apiResponse}</p> */}
       </div>
     );
   }
