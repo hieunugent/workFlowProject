@@ -6,9 +6,9 @@ var logger = require('morgan');
 var cors = require("cors");
 
 const bodyParser = require("body-parser");
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var testAPIRouter = require("./routes/testAPI");
+// var indexRouter = require('./routes/index');
+// var usersRouter = require('./routes/users');
+// var testAPIRouter = require("./routes/testAPI");
 var databaseMongoDB = require('./routes/database');
 
 var app = express();
@@ -22,6 +22,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}
 
 ));
+
+// default setting of the app that need to be done
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
@@ -31,9 +33,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // directory or path to backend 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use("/testAPI", testAPIRouter);
+// app.use('/', indexRouter);
+// app.use('/users', usersRouter);
+// app.use("/testAPI", testAPIRouter);
 app.use('/database', databaseMongoDB);
 
 
@@ -52,5 +54,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
+// const PORT = process.env.PORT || 8081;
+// app.listen(PORT, ()=> {
+//   console.log(`Server is running on port ${PORT}.`);
+  
+// });
 module.exports = app;
