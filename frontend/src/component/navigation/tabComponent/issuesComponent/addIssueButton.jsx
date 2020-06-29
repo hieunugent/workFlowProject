@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, makeStyles, TextField, FormControl, Select, Input, MenuItem, useTheme, Box,  } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import "./issues.css";
-
+import IssueDataService from "../../../../services/IssueService";
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -13,32 +13,32 @@ const MenuProps = {
         },
     },
 };
-const listIssueTemple = [{
-    id :1,
-    nameProject: "project A",
-    sumariesIssue: " this is First Issue ",
-    descriptionsIssue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-}, { id:2,
-    nameProject: "project E",
-    sumariesIssue: " this is second Issue ",
-    descriptionsIssue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-}, { id:3,
-    nameProject: "project B",
-    sumariesIssue: " this is third Issue ",
-    descriptionsIssue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-}, { id:4,
-    nameProject: "project C",
-    sumariesIssue: " this is fouth Issue ",
-    descriptionsIssue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-}, { id:5,
-    nameProject: "project D",
-    sumariesIssue: " this is fifth Issue ",
-    descriptionsIssue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-}, { id:6,
-    nameProject: "project F",
-    sumariesIssue: " this is sixth Issue ",
-    descriptionsIssue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-},]
+// const listIssueTemple = [{
+//     id :1,
+//     nameProject: "project A",
+//     sumariesIssue: " this is First Issue ",
+//     descriptionsIssue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+// }, { id:2,
+//     nameProject: "project E",
+//     sumariesIssue: " this is second Issue ",
+//     descriptionsIssue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+// }, { id:3,
+//     nameProject: "project B",
+//     sumariesIssue: " this is third Issue ",
+//     descriptionsIssue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+// }, { id:4,
+//     nameProject: "project C",
+//     sumariesIssue: " this is fouth Issue ",
+//     descriptionsIssue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+// }, { id:5,
+//     nameProject: "project D",
+//     sumariesIssue: " this is fifth Issue ",
+//     descriptionsIssue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+// }, { id:6,
+//     nameProject: "project F",
+//     sumariesIssue: " this is sixth Issue ",
+//     descriptionsIssue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+// },]
 const useStyles = makeStyles((theme) => ({
     formInput: {
         '& > *': {
@@ -100,7 +100,7 @@ export default function AddIssueButton (props){
 
 
     const [issueFormInfo, setIssueInfo] = useState(
-        {
+        {   id:null, 
             nameProject: "",
             sumariesIssue: "",
             descriptionsIssue: "",
@@ -113,7 +113,30 @@ export default function AddIssueButton (props){
             return [...prevList, newNode];
         });
     }
+    const saveIssue = () => {
+        var data = {
+          nameProject: issueFormInfo.nameProject,
+          sumariesIssue:issueFormInfo.sumariesIssue,
+          descriptionsIssue:issueFormInfo.descriptionsIssue,
+        };
 
+        IssueDataService.create(data)
+        .then(response => {
+            setIssueInfo({
+                id: response.data.id,
+                nameProject:response.data.nameProject,
+                descriptionsIssue:response.data.descriptionsIssue,
+                sumariesIssue:response.data.sumariesIssue,
+            });
+            console.log(response.data);
+            
+        }).catch(e=> {
+            console.log(e);
+            
+        });
+    };
+
+    
     const submitIssue = (event) => {      
         addListIssue(issueFormInfo);
         setIssueInfo({
@@ -194,93 +217,88 @@ export default function AddIssueButton (props){
         );
     }
     return (
-        <div>
-            <h1> Issue Pages</h1>
-            <div className="issuesButton" >
-                <Button
-                    color="primary"
-                    variant="contained"
-                    aria-controls="create-issue"
-                    onClick={handleIssueClick}
-                >
-                    <AddIcon /> New Issues
-            </Button>
-            </div>
-
-            <Box display={openissueform}>
-                <div className={classes.formInput}>
-                    <h1 className={classes.inputOption}  >
-                        New Issue in
-                         <IssueOfProject id="currentProjectname" />
-                    </h1>
-                    <TextField
-                        id="sumary-issue"
-                        value={issueFormInfo.sumariesIssue}
-                        name="sumariesIssue"
-                        style={{ margin: 8 }}
-                        label="Sumary Issue"
-                        fullWidth
-                        placeholder=" Add quick sumary for your issues"
-                        margin="normal"
-                        onChange={handlePreviewIssue}
-
-                    />
-                    <TextField
-                        id="description"
-                        value={issueFormInfo.descriptionsIssue}
-                        name="descriptionsIssue"
-                        label="Description"
-                        onChange={handlePreviewIssue} />
-
-
-                    <div className={classes.fieldButton}>
-                        <Button variant="contained" color='primary' onClick={submitIssue} onChange={addListIssue}> Create </Button>
-                        <Button variant="outlined" color='primary' onClick={handleIssueClick}> Cancel </Button>
-                    </div>
-
-                </div>
-                <div className="leftaligning" id="previewSection">
-                    <h3> Preview Issue</h3>
-                    <h4>{issueFormInfo.nameProject}</h4>
-                    <h4>{issueFormInfo.sumariesIssue}</h4>
-                    <p> {issueFormInfo.descriptionsIssue} </p>
-                </div>
-            </Box>
-            <Box display={modifyIssueForm}   >
-                <h2 className="leftaligning"> All the Issue that you have</h2>
-                {listIssueTemple.map((list, index) => {
-                    return (
-                        <div key={`${index}-${list.nameProject}`}>
-                            <IssueForm
-
-                                id={index}
-                                value={list}
-                                nameProject={list.nameProject}
-                                sumariesIssue={list.sumariesIssue}
-                                descriptionsIssue={list.descriptionsIssue}
-                            />
-                        </div>
-                    );
-                })}
-                {listIssue.map((list, index) => {
-                    return (
-
-                        <div key={`${index}-${list.nameProject}`}>
-
-                            <IssueForm
-
-                                id={index}
-                                value={list}
-                                nameProject={list.nameProject}
-                                sumariesIssue={list.sumariesIssue}
-                                descriptionsIssue={list.descriptionsIssue}
-                            />
-                        </div>
-                    );
-                })}
-
-            </Box>
+      <div>
+        <h1> Issue Pages</h1>
+        <div className="issuesButton">
+          <Button
+            color="primary"
+            variant="contained"
+            aria-controls="create-issue"
+            onClick={handleIssueClick}
+          >
+            <AddIcon /> New Issues
+          </Button>
         </div>
 
+        <Box display={openissueform}>
+          <div className={classes.formInput}>
+            <h1 className={classes.inputOption}>
+              New Issue in
+              <IssueOfProject id="currentProjectname" />
+            </h1>
+            <TextField
+              id="sumary-issue"
+              value={issueFormInfo.sumariesIssue}
+              name="sumariesIssue"
+              style={{ margin: 8 }}
+              label="Sumary Issue"
+              fullWidth
+              placeholder=" Add quick sumary for your issues"
+              margin="normal"
+              onChange={handlePreviewIssue}
+            />
+            <TextField
+              id="description"
+              value={issueFormInfo.descriptionsIssue}
+              name="descriptionsIssue"
+              label="Description"
+              onChange={handlePreviewIssue}
+            />
+
+            <div className={classes.fieldButton}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={submitIssue}
+                onChange={addListIssue}
+              >
+                {" "}
+                Create{" "}
+              </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={handleIssueClick}
+              >
+                {" "}
+                Cancel{" "}
+              </Button>
+            </div>
+          </div>
+          <div className="leftaligning" id="previewSection">
+            <h3> Preview Issue</h3>
+            <h4>{issueFormInfo.nameProject}</h4>
+            <h4>{issueFormInfo.sumariesIssue}</h4>
+            <p> {issueFormInfo.descriptionsIssue} </p>
+          </div>
+        </Box>
+        <Box display={modifyIssueForm}>
+          <h2 className="leftaligning"> All the Issue that you have</h2>
+
+          {listIssue.map((list, index) => {
+            return (
+              <div key={`${index}-${list.nameProject}`}>
+                <IssueForm
+                  id={index}
+                  value={list}
+                  nameProject={list.nameProject}
+                  sumariesIssue={list.sumariesIssue}
+                  descriptionsIssue={list.descriptionsIssue}
+                />
+              </div>
+            );
+          })}
+        </Box>
+      </div>
     );
 }
