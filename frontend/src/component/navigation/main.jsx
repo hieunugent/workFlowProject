@@ -8,16 +8,18 @@ import {
 } from "react-router-dom";
 import Dashboard from "./tabComponent/dashboard";
 import Project from "./tabComponent/project";
-import Issues from "./tabComponent/issues";
+// import Issues from "./tabComponent/issues";
 import Reports from "./tabComponent/report";
 import Users from "./tabComponent/users";
-import {  Tab, Box, Toolbar, IconButton, Drawer, Typography, ListItem, makeStyles, useTheme } from "@material-ui/core";
+import {   Box, Toolbar, IconButton, Drawer, Typography, ListItem, makeStyles, useTheme } from "@material-ui/core";
 import Copyright from './tabComponent/copyright';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import AppBar from '@material-ui/core/AppBar';
 import List from '@material-ui/core/List';
 import clsx from 'clsx';
+import AddIssueButton from "./tabComponent/issuesComponent/addIssueButton";
+//import AddIssue from "../AddIssue";
 // Since routes are regular React components, they
 // may be rendered anywhere in the app, including in
 // child elements.
@@ -133,7 +135,7 @@ export default function Main() {
               {/* <Tab label="Project" ></Tab> */}
               Projects
               </Link></ListItem>
-              <ListItem>   <Link  to="/Issues">
+              <ListItem>   <Link  to="/issues">
               Issues
               {/* <Tab label="Issues"></Tab> */}
               </Link> </ListItem>
@@ -147,6 +149,7 @@ export default function Main() {
               <ListItem>   <Link to="/doc">
                 Documents
               </Link></ListItem>
+             
           </List>
         </Drawer>
      </nav>
@@ -165,8 +168,7 @@ export default function Main() {
               <Project   />
               project
             </Route>
-            <Route path="/Issues">
-              <Issues />
+              <Route exact path="/issues" component={AddIssueButton}>
             </Route>
             <Route path="/Report">
               <Reports />
@@ -180,6 +182,8 @@ export default function Main() {
                 {/* <Users /> */}
               Documents
             </Route>
+             
+
           </Switch>
           <Box pt={4}>
             <Copyright />

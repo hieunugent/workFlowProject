@@ -91,39 +91,43 @@ const IssueForm = (props) => {
     );
 }
 
-export default function AddIssueButton (props){
+ const  AddIssueButton = (props)=>{
     const classes = useStyles();
     const [projectName, setProjectName] = useState([]);
     const [openissueform, setissueOpen] = useState('none');
     const [modifyIssueForm, setIssueModify] = useState('block');
     const [issuePageON, setIssuepageOn] = useState(false);
-
-
-    const [issueFormInfo, setIssueInfo] = useState(
-        {   id:null, 
-            nameProject: "",
-            sumariesIssue: "",
-            descriptionsIssue: "",
-        }
-    );
-
     const [listIssue, setListIssue] = useState([]);
     const addListIssue = (newNode) => {
-        setListIssue(prevList => {
-            return [...prevList, newNode];
-        });
+    setListIssue(prevList => {
+      return [...prevList, newNode];
+    });
     }
-    const saveIssue = () => {
+    const initialIssue = {
+    id: null,
+    nameProject: "",
+    sumariesIssue: "",
+    descriptionsIssue: "",
+    };
+
+    const [issueFormInfo, setIssueInfo] = useState(
+      initialIssue
+    );
+
+   
+  const saveIssue = () => {
         var data = {
           nameProject: issueFormInfo.nameProject,
           sumariesIssue:issueFormInfo.sumariesIssue,
           descriptionsIssue:issueFormInfo.descriptionsIssue,
         };
-
+        console.log(data);
+        
+        addListIssue(issueFormInfo);
         IssueDataService.create(data)
         .then(response => {
             setIssueInfo({
-                id: response.data.id,
+                //id: response.data.id,
                 nameProject:response.data.nameProject,
                 descriptionsIssue:response.data.descriptionsIssue,
                 sumariesIssue:response.data.sumariesIssue,
@@ -134,35 +138,41 @@ export default function AddIssueButton (props){
             console.log(e);
             
         });
+      setIssueModify('block');
+      setissueOpen('none');
+      setIssuepageOn(false);
+      
     };
+  // const submitIssue = (event) => {
 
+  //   addListIssue(issueFormInfo);
+  //   setIssueInfo({
+  //     nameProject: "",
+  //     sumariesIssue: "",
+  //     descriptionsIssue: "",
+  //   });
+  //   setIssueModify('block');
+  //   setissueOpen('none');
+  //   setIssuepageOn(false);
+  //   event.preventDefault();
+
+  // }
+  
     
-    const submitIssue = (event) => {      
-        addListIssue(issueFormInfo);
-        setIssueInfo({
-            nameProject: "",
-            sumariesIssue: "",
-            descriptionsIssue: "",
-        });
-        setIssueModify('block');
-        setissueOpen('none');
-        setIssuepageOn(false);
-        event.preventDefault();
-
-    }
 
     const handlePreviewIssue = (event) => {
         const { name, value } = event.target;
-        setIssueInfo(prevItems => {
-            return {
-                ...prevItems,
+        setIssueInfo({
+          
+          ...issueFormInfo,
                 [name]: value
-            };
+            
         });
 
-    }
+    };
 
     const handleIssueClick = () => {
+      setIssueInfo(initialIssue);
         if (!issuePageON) {
            
             setissueOpen('block');
@@ -208,7 +218,10 @@ export default function AddIssueButton (props){
                         Your Project Name
                 </MenuItem>
                     {names.map((name) => (
-                        <MenuItem key={name} value={name} style={getStyles(name, projectName, theme)}>
+                        <MenuItem
+                         key={name} 
+                         value={name} 
+                         style={getStyles(name, projectName, theme)}>
                             {name}
                         </MenuItem>
                     ))}
@@ -259,7 +272,7 @@ export default function AddIssueButton (props){
               <Button
                 variant="contained"
                 color="primary"
-                onClick={submitIssue}
+                onClick={saveIssue}
                 onChange={addListIssue}
               >
                 {" "}
@@ -302,3 +315,5 @@ export default function AddIssueButton (props){
       </div>
     );
 }
+
+export default AddIssueButton;
