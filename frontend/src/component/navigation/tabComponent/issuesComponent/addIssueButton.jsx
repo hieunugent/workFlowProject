@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, makeStyles, TextField, FormControl, Select, Input, MenuItem, useTheme, Box,  } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import "./issues.css";
@@ -13,38 +13,12 @@ const MenuProps = {
         },
     },
 };
-// const listIssueTemple = [{
-//     id :1,
-//     nameProject: "project A",
-//     sumariesIssue: " this is First Issue ",
-//     descriptionsIssue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-// }, { id:2,
-//     nameProject: "project E",
-//     sumariesIssue: " this is second Issue ",
-//     descriptionsIssue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-// }, { id:3,
-//     nameProject: "project B",
-//     sumariesIssue: " this is third Issue ",
-//     descriptionsIssue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-// }, { id:4,
-//     nameProject: "project C",
-//     sumariesIssue: " this is fouth Issue ",
-//     descriptionsIssue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-// }, { id:5,
-//     nameProject: "project D",
-//     sumariesIssue: " this is fifth Issue ",
-//     descriptionsIssue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-// }, { id:6,
-//     nameProject: "project F",
-//     sumariesIssue: " this is sixth Issue ",
-//     descriptionsIssue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-// },]
+
 const useStyles = makeStyles((theme) => ({
     formInput: {
         '& > *': {
             margin: theme.spacing(1),
             width: '70%',
-
         },
     },
 
@@ -72,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     previewField: {
     },
 }));
-const names = ['project 1', 'project 2', 'project 3', 'project 4', 'project 5', 'project 6', 'new project 7',];
+
 function getStyles(name, projectName, theme) {
     return {
         fontWeight:
@@ -92,6 +66,7 @@ const IssueForm = (props) => {
 }
 
  const  AddIssueButton = (props)=>{
+    const names = ['project 1', 'project 2', 'project 3', 'project 4', 'project 5', 'project 6', 'new project 7',];
     const classes = useStyles();
     const [projectName, setProjectName] = useState([]);
     const [openissueform, setissueOpen] = useState('none');
@@ -102,7 +77,12 @@ const IssueForm = (props) => {
     setListIssue(prevList => {
       return [...prevList, newNode];
     });
-    }
+    };
+   
+    useEffect(()=> {
+      retrieveIssues();
+    }, []);
+
     const initialIssue = {
     id: null,
     nameProject: "",
@@ -143,20 +123,17 @@ const IssueForm = (props) => {
       setIssuepageOn(false);
       
     };
-  // const submitIssue = (event) => {
+    const retrieveIssues = ()=> {
+      IssueDataService.getAll()
+      .then(response => {
+        setListIssue(response.data);
+        console.log(response.data);
+        
+      }).catch(e=> {
+        console.log(e);
+      });
+    };
 
-  //   addListIssue(issueFormInfo);
-  //   setIssueInfo({
-  //     nameProject: "",
-  //     sumariesIssue: "",
-  //     descriptionsIssue: "",
-  //   });
-  //   setIssueModify('block');
-  //   setissueOpen('none');
-  //   setIssuepageOn(false);
-  //   event.preventDefault();
-
-  // }
   
     
 
