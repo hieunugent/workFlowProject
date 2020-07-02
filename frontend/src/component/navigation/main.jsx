@@ -7,7 +7,7 @@ import {
   
 } from "react-router-dom";
 import Dashboard from "./tabComponent/dashboard";
-import Project from "./tabComponent/project";
+import Project from "./tabComponent/projectComponent/addProject";
 // import Issues from "./tabComponent/issues";
 import Reports from "./tabComponent/report";
 import Users from "./tabComponent/users";
@@ -131,7 +131,7 @@ export default function Main() {
               {/* <Tab label="Dashbash" ></Tab> */}
               Dashboard
               </Link></ListItem>
-              <ListItem>   <Link  to="/Project" >
+              <ListItem>   <Link  to="/projects" >
               {/* <Tab label="Project" ></Tab> */}
               Projects
               </Link></ListItem>
@@ -164,9 +164,7 @@ export default function Main() {
                 <Dashboard  />
                 Dashboard
             </Route>
-            <Route path="/Project">
-              <Project   />
-              project
+            <Route exact path="/projects" component={Project}>
             </Route>
               <Route exact path="/issues" component={AddIssueButton}>
             </Route>

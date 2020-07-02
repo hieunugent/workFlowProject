@@ -1,0 +1,15 @@
+.projectcss{
+    width: 50%;
+    margin-left: 20%;
+    margin-right: 20%;
+    /* background-color: cadetblue; */
+}
+.inputBox{
+    width: 80%;
+    /* background-color: greenyellow; */
+}
+.leftaligning{
+    padding-left: 15%;
+    text-align: left;
+    width: 70%;
+}

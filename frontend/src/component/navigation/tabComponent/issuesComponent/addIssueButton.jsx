@@ -132,7 +132,7 @@ const IssueForm = (props) => {
       }).catch(e=> {
         console.log(e);
       });
-    };
+    }; 
 
   
     
