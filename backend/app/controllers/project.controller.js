@@ -21,7 +21,24 @@ exports.create = (req, res) => {
         .catch((err)=> {
             res.status(500).send({
                 message:
-                err.message || "some error occurred while creating new project."
+                err.message || "some erroe occurred while creating new project."
             });
         });
 };
+exports.findAll = (req, res) => {
+    const nameProject = req.query.nameProject;
+    var condition = nameProject
+        ? { nameProject: { $regex: new RegExp(nameProject), $options: "i" } }
+        : {};
+
+    Issue.find(condition)
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving Project.",
+            });
+        });
+}
