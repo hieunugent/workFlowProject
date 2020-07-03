@@ -15,21 +15,3 @@ module.exports = (mongoose) => {
     const Project = mongoose.model("project", schema);
     return Project;
 };
-
-exports.findAll = (req, res) => {
-    const nameProject = req.query.nameProject;
-    var condition = nameProject
-        ? { nameProject: { $regex: new RegExp(nameProject), $options: "i" } }
-        : {};
-
-    Issue.find(condition)
-        .then((data) => {
-            res.send(data);
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving Project.",
-            });
-        });
-}

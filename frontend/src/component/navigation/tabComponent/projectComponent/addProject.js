@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TextField, Button } from "@material-ui/core";
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import "./projectpage.css";
+import ProjectDataService from "../../../../services/projectService";
 
 
 
@@ -39,10 +40,23 @@ export default function Project() {
         var data = {
             nameProject:projectFormInfo.nameProjectname,
         };
+    
         console.log(data);
         addListProject(projectFormInfo);
-        setProjectInfo(initialProject);
+        ProjectDataService.create(data)
+            .then(response => {
+              setProjectInfo({
+                nameProject:response.data.nameProject,
+              });
+              console.log(response.data);
+              
+            }).catch(e=> {
+                console.log(e);
+                
+            });
 
+          setProjectInfo(initialProject);
+     
       
     };
     
