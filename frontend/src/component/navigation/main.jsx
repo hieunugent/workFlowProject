@@ -119,25 +119,20 @@ export default function Main() {
           </div>
           <List>
               <ListItem>   <Link  to="/" >
-              {/* <Tab label="Dashbash" ></Tab> */}
               Dashboard
               </Link></ListItem>
-              <ListItem>   <Link  to="/projects" >
-              {/* <Tab label="Project" ></Tab> */}
+              <ListItem>   <Link  to="/projects" >          
               Projects
               </Link></ListItem>
               <ListItem>   <Link  to="/issues">
-              Issues
-              {/* <Tab label="Issues"></Tab> */}
+              Issues            
               </Link> </ListItem>
               <ListItem>   <Link to="/logins">
-                Login
+              Login
               </Link></ListItem>
               <ListItem>   <Link  to="/Report">
-              Reports
-              {/* <Tab label="Report"></Tab> */}
+              Reports  
               </Link></ListItem>
-             
               <ListItem>   <Link to="/doc">
               Documents
               </Link></ListItem> 
@@ -152,9 +147,9 @@ export default function Main() {
 
           <Switch>
               <Route exact path="/"><Dashboard  /></Route>
-              <Route exact path="/projects" component={Project}></Route>
-              <Route exact path="/issues" component={AddIssueButton}></Route>
-              <Route exact path="/logins"  component={Login}> users login</Route>
+              <Route exact path="/projects"   component={Project}></Route>
+              <Route exact path="/issues"     component={AddIssueButton}></Route>
+              <Route exact path="/logins"     component={Login}> users login</Route>
               <Route path="/Report"><Reports />report</Route>
               <Route path="/Doc">Documents</Route>
           </Switch>
