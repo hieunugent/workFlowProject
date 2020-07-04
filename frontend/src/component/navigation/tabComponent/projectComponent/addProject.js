@@ -5,15 +5,11 @@ import "./projectpage.css";
 import ProjectDataService from "../../../../services/projectService";
 
 
-
-
-
-
 const ProjectFrom =(props) => {
     return (
         <div className="leftaligning">
             <h2> {props.nameProject}</h2>
-            <h3> Total issue is </h3>
+            <h3> {props.DescriptionProject } </h3>
         </div>
     );
 }
@@ -21,7 +17,7 @@ const ProjectFrom =(props) => {
 export default function Project() {
    
     const [listProject, setListProject] = useState([]);
-
+ 
     const handleNewProject =(event)=> {
 
             const {name, value} = event.target;
@@ -38,7 +34,8 @@ export default function Project() {
     };
     const saveProject = () => {
         var data = {
-            nameProject:projectFormInfo.nameProjectname,
+            nameProject:projectFormInfo.nameProject,
+            DescriptionProject: projectFormInfo.DescriptionProject,
         };
     
         console.log(data);
@@ -47,6 +44,7 @@ export default function Project() {
             .then(response => {
               setProjectInfo({
                 nameProject:response.data.nameProject,
+                DescriptionProject: response.data.DescriptionProject,
               });
               console.log(response.data);
               
@@ -56,13 +54,12 @@ export default function Project() {
             });
 
           setProjectInfo(initialProject);
-     
-      
     };
     
     const initialProject={
        
         nameProject:"",
+        DescriptionProject:"",
 
     };
     const [projectFormInfo, setProjectInfo] = useState(
@@ -84,15 +81,31 @@ export default function Project() {
                     style={{marginRight:8}}
                     variant="standard"
                 />
+                <TextField
+                    className="inputBox"
+                    id="project-description"
+                    name="DescriptionProject"
+                    label="Description Project"
+                    value={projectFormInfo.DescriptionProject}
+                    placeholder="type your Description of your Project"
+                    onChange={handleNewProject}
+                    style={{marginRight:8}}
+                    variant="standard"
+                />
+               
+            </div>
+             <div className="submitButton"> 
                 <Button
                     variant="outlined"
                     color="primary"
                     onClick={saveProject}
-                
+
                 >
-                    <PostAddIcon fontSize="large"/>
-                </Button>
-            </div>
+                    <PostAddIcon fontSize="large" />
+                    Submit Project
+                </Button> 
+             </div>
+                    
             <div>
               <h1> Show All project </h1>
 
@@ -103,8 +116,8 @@ export default function Project() {
                             id={index}
                             value={list}
                             nameProject={list.nameProject}
+                            DescriptionProject={list.DescriptionProject}
                         />
-
                     </div>
                 );
               })}

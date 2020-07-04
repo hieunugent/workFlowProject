@@ -8,7 +8,6 @@ class App extends Component {
     return (
       <div className="App">
         <Main />
-       {/* <p className="App-intro">{this.state.apiResponse}</p> */}
       </div>
     );
   }

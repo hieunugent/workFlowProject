@@ -1,6 +1,5 @@
-const db = require("../models");
+const db = require("../models/index");
 const Project = db.projects;
-
 
 exports.create = (req, res) => {
     if(!req.body.nameProject){
@@ -21,7 +20,7 @@ exports.create = (req, res) => {
         .catch((err)=> {
             res.status(500).send({
                 message:
-                err.message || "some erroe occurred while creating new project."
+                err.message || "some error occurred while creating new project."
             });
         });
 };

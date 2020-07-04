@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const db = require("./app/models");
+const db = require("./app/models/index");
 db.mongoose
   .connect(db.url, {
     useNewUrlParser: true,
@@ -37,6 +37,7 @@ app.get("/", (req, res) => {
 
 // set port, listen for requests
 require("./app/routes/issue.routers")(app);
+require("./app/routes/project.routers")(app);
 const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);

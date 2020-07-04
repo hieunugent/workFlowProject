@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require("../models/index");
 const Issue = db.issues;
 exports.create= (req, res) => {
     // validate request 

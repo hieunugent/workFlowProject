@@ -10,8 +10,7 @@ import Dashboard from "./tabComponent/dashboard";
 import Project from "./tabComponent/projectComponent/addProject";
 // import Issues from "./tabComponent/issues";
 import Reports from "./tabComponent/report";
-import Users from "./tabComponent/users";
-import {   Box, Toolbar, IconButton, Drawer, Typography, ListItem, makeStyles, useTheme } from "@material-ui/core";
+import {Box, Toolbar, IconButton, Drawer, Typography, ListItem, makeStyles } from "@material-ui/core";
 import Copyright from './tabComponent/copyright';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -19,15 +18,7 @@ import AppBar from '@material-ui/core/AppBar';
 import List from '@material-ui/core/List';
 import clsx from 'clsx';
 import AddIssueButton from "./tabComponent/issuesComponent/addIssueButton";
-//import AddIssue from "../AddIssue";
-// Since routes are regular React components, they
-// may be rendered anywhere in the app, including in
-// child elements.
-//
-// This helps when it's time to code-split your app
-// into multiple bundles because code-splitting a
-// React Router app is the same as code-splitting
-// any other React app.
+import Login from "./tabComponent/authentication/login";
 const drawerWidth= 240;
 const useStyles = makeStyles((theme)=> ({
   root:{
@@ -139,17 +130,17 @@ export default function Main() {
               Issues
               {/* <Tab label="Issues"></Tab> */}
               </Link> </ListItem>
+              <ListItem>   <Link to="/logins">
+                Login
+              </Link></ListItem>
               <ListItem>   <Link  to="/Report">
               Reports
               {/* <Tab label="Report"></Tab> */}
               </Link></ListItem>
-              <ListItem>   <Link  to="/Users">
-              Users
-              </Link></ListItem>
-              <ListItem>   <Link to="/doc">
-                Documents
-              </Link></ListItem>
              
+              <ListItem>   <Link to="/doc">
+              Documents
+              </Link></ListItem> 
           </List>
         </Drawer>
      </nav>
@@ -160,28 +151,12 @@ export default function Main() {
           <div  >
 
           <Switch>
-            <Route exact path="/">
-                <Dashboard  />
-                Dashboard
-            </Route>
-            <Route exact path="/projects" component={Project}>
-            </Route>
-              <Route exact path="/issues" component={AddIssueButton}>
-            </Route>
-            <Route path="/Report">
-              <Reports />
-              report
-            </Route>
-            <Route path="/Users">
-              <Users />
-              users
-            </Route>
-              <Route path="/Doc">
-                {/* <Users /> */}
-              Documents
-            </Route>
-             
-
+              <Route exact path="/"><Dashboard  /></Route>
+              <Route exact path="/projects" component={Project}></Route>
+              <Route exact path="/issues" component={AddIssueButton}></Route>
+              <Route exact path="/logins"  component={Login}> users login</Route>
+              <Route path="/Report"><Reports />report</Route>
+              <Route path="/Doc">Documents</Route>
           </Switch>
           <Box pt={4}>
             <Copyright />
