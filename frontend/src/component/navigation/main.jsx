@@ -19,6 +19,9 @@ import List from '@material-ui/core/List';
 import clsx from 'clsx';
 import AddIssueButton from "./tabComponent/issuesComponent/addIssueButton";
 import Login from "./tabComponent/authentication/login";
+import Register from './tabComponent/authentication/registration';
+
+
 const drawerWidth= 240;
 const useStyles = makeStyles((theme)=> ({
   root:{
@@ -130,7 +133,7 @@ export default function Main() {
               <ListItem>   <Link to="/logins">
               Login
               </Link></ListItem>
-              <ListItem>   <Link  to="/Report">
+              <ListItem>   <Link to="/reports">
               Reports  
               </Link></ListItem>
               <ListItem>   <Link to="/doc">
@@ -149,8 +152,8 @@ export default function Main() {
               <Route exact path="/"><Dashboard  /></Route>
               <Route exact path="/projects"   component={Project}></Route>
               <Route exact path="/issues"     component={AddIssueButton}></Route>
-              <Route exact path="/logins"     component={Login}> users login</Route>
-              <Route path="/Report"><Reports />report</Route>
+              <Route exact path="/logins"> <Login/> users login</Route>
+              <Route exact path="/registrations"><Register /></Route>
               <Route path="/Doc">Documents</Route>
           </Switch>
           <Box pt={4}>
