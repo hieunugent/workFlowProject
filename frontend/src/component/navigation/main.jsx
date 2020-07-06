@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -6,27 +6,27 @@ import {
   Link,
   
 } from "react-router-dom";
+
 import Dashboard from "./tabComponent/dashboard";
 import Project from "./tabComponent/projectComponent/addProject";
-// import Issues from "./tabComponent/issues";
-import Reports from "./tabComponent/report";
-import {Box, Toolbar, IconButton, Drawer, Typography, ListItem, makeStyles } from "@material-ui/core";
+import { withStyles } from '@material-ui/core/styles';
+import {Box, Toolbar, IconButton, Drawer, Typography, ListItem, makeStyles, Button } from "@material-ui/core";
 import Copyright from './tabComponent/copyright';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import AppBar from '@material-ui/core/AppBar';
 import List from '@material-ui/core/List';
 import clsx from 'clsx';
-import AddIssueButton from "./tabComponent/issuesComponent/addIssueButton";
-import Login from "./tabComponent/authentication/login";
+import AddIssueButton from './tabComponent/issuesComponent/addIssueButton';
+import Login from './tabComponent/authentication/login';
 import Register from './tabComponent/authentication/registration';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 
 const drawerWidth= 240;
 const useStyles = makeStyles((theme)=> ({
-  root:{
-   // display:'flex-start',
-  },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
@@ -70,9 +70,93 @@ const useStyles = makeStyles((theme)=> ({
   drawerPaper: {
     width: drawerWidth,
   },
-
-
+  loginCss:{
+      marginLeft: '30%',
+      marginRight:  '5%',
+      width:'5%', 
+      flexShrink: 0,
+    },
+  headlinecss:{
+      marginRight: 'auto',
+      flexShrink:0,
+  },
 }));
+
+const StyledMenu = withStyles({
+  paper: {
+    border: '1px solid #d3d4d5',
+  },
+})((props) => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'center',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'center',
+    }}
+    {...props}
+  />
+));
+
+const StyledMenuItem = withStyles((theme) => ({
+  root: {
+    '&:focus': {
+      backgroundColor: theme.palette.primary.main,
+      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+        color: theme.palette.common.white,
+      },
+    },
+  },
+}))(MenuItem);
+
+const LoginMenuItems = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  
+  return (
+    <div>
+      <Button
+        aria-controls="customized-menu"
+        aria-haspopup="true"
+        variant="contained"
+        color="primary"
+        onClick={handleClick}
+      >
+        Account
+      </Button>
+      <StyledMenu
+        id="customized-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <Link to="/logins" style={{ textDecoration: 'none'}} >
+        <StyledMenuItem >
+          <ListItemText primary="Login"> </ListItemText>  
+        </StyledMenuItem>  </Link>
+        
+        <Link to="/registrations" style={{ textDecoration: 'none' }} >
+          <StyledMenuItem>
+            <ListItemText primary="Register" />
+          </StyledMenuItem> 
+          </Link>
+      </StyledMenu>
+      
+    </div>
+  );
+}
+
+
 export default function Main() {
   const classes = useStyles();
   //const theme = useTheme();
@@ -85,6 +169,7 @@ export default function Main() {
   }
   return (
     <div >
+      <Router>
     <AppBar position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]:open,
@@ -99,12 +184,15 @@ export default function Main() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant='h6' noWrap>
+          <Typography variant='h6' noWrap className={classes.headlinecss}>
            Temperary Response Header
-        </Typography>
+         </Typography>
+         <div className={classes.loginCss}> 
+             <LoginMenuItems />
+         </div>
         </Toolbar>
     </AppBar>
-      <Router>
+     
      <nav>
         <Drawer
           className={classes.drawer}
@@ -121,22 +209,19 @@ export default function Main() {
             </IconButton>
           </div>
           <List>
-              <ListItem>   <Link  to="/" >
+              <ListItem>   <Link to="/" style={{ textDecoration: 'none' }} >
               Dashboard
               </Link></ListItem>
-              <ListItem>   <Link  to="/projects" >          
+              <ListItem>   <Link to="/projects" style={{ textDecoration: 'none' }}>          
               Projects
               </Link></ListItem>
-              <ListItem>   <Link  to="/issues">
+              <ListItem>   <Link to="/issues" style={{ textDecoration: 'none' }}>
               Issues            
               </Link> </ListItem>
-              <ListItem>   <Link to="/logins">
-              Login
-              </Link></ListItem>
-              <ListItem>   <Link to="/reports">
+              <ListItem>   <Link to="/reports" style={{ textDecoration: 'none' }}  >
               Reports  
               </Link></ListItem>
-              <ListItem>   <Link to="/doc">
+              <ListItem>   <Link to="/doc" style={{ textDecoration: 'none' }}>
               Documents
               </Link></ListItem> 
           </List>
@@ -152,9 +237,9 @@ export default function Main() {
               <Route exact path="/"><Dashboard  /></Route>
               <Route exact path="/projects"   component={Project}></Route>
               <Route exact path="/issues"     component={AddIssueButton}></Route>
-              <Route exact path="/logins"> <Login/> users login</Route>
+              <Route exact path="/logins"> <Login/></Route>
               <Route exact path="/registrations"><Register /></Route>
-              <Route path="/Doc">Documents</Route>
+              <Route path="/doc"> Documents </Route>
           </Switch>
           <Box pt={4}>
             <Copyright />

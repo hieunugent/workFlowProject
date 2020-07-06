@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextField, Button, makeStyles, Paper } from '@material-ui/core';
-import { Link, Route, Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import clsx from "clsx";
 
 
@@ -36,14 +36,14 @@ const useStyles = makeStyles((theme)=> ({
                 <TextField
                 className={classes.inputformatField}
                     id="standard-basic"
-                    label="Email"
+                    label="Email Address * "
                     type="email"
                 />
                 <br/>
                 <TextField
                 className={classes.inputformatField}
                     id="standard-basic"
-                    label="Password"
+                    label="Password *"
                     type="password"
                 />
                 <br/>

@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
         width:'30%',
     },
     styleCheckbox: {
-    marginLeft: '30%',
-    marginRight: '30%',
+    marginLeft: '20%',
+    marginRight: '40%',
 }
 }));
 
