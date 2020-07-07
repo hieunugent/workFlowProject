@@ -3,9 +3,6 @@ import { TextField, Button, makeStyles, Paper } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import clsx from "clsx";
 
-
-
-
 const useStyles = makeStyles((theme)=> ({
     margin: {
         marginTop: theme.spacing(2),
@@ -24,13 +21,11 @@ const useStyles = makeStyles((theme)=> ({
 }));
 
 
- const Login= ()=> {
+ const Login = ()=> {
     const classes = useStyles();
     const fixedHeightPaper = clsx(classes.fixedHeight);
-    return (
-        
+    return (      
         <div >
-
             <Paper className={fixedHeightPaper}>
                 <h1> Login </h1>
                 <TextField
@@ -46,16 +41,11 @@ const useStyles = makeStyles((theme)=> ({
                     label="Password *"
                     type="password"
                 />
-                <br/>
-                 
+                <br/>    
                  <h3> No account? <Link to="/registrations">Register </Link></h3>
-                 
                 <Button className={classes.margin} variant="outlined" color="primary" > Login </Button>
-        
             </Paper> 
-    
-        </div>
-       
+        </div> 
     );
 }
 

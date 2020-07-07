@@ -64,7 +64,7 @@ export default function Project() {
     };
     const [projectFormInfo, setProjectInfo] = useState(
         initialProject
-    )
+    );
     return (
         <div className="">
             <h1> Project Start</h1>
@@ -121,12 +121,7 @@ export default function Project() {
                     </div>
                 );
               })}
-     
-            
            </div>
-          
-
         </div>
-
     )
 }
