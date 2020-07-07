@@ -128,7 +128,7 @@ export default function Main() {
               <ChevronLeftIcon />
             </IconButton>
           </div>
-          <List>
+          <List  >
               <ListItem>   <Link to="/dashboard" style={{ textDecoration: 'none' }} >
               Dashboard
               </Link></ListItem>
